@@ -133,8 +133,8 @@ public class Bot1 : MonoBehaviour
     {
         RaycastHit raycastInfo;
         Vector3 rayToTarget = target.transform.position - this.transform.position;
-
-        if (Physics.Raycast(this.transform.position, rayToTarget, out raycastInfo))
+        float lookAngle = Vector3.Angle(this.transform.forward, rayToTarget);
+        if (lookAngle < 60 && Physics.Raycast(this.transform.position, rayToTarget, out raycastInfo))
         {
             if (raycastInfo.transform.gameObject.tag == "cop")
                 return true;
@@ -148,7 +148,7 @@ public class Bot1 : MonoBehaviour
 
     bool TargetCanSeeMe()
     {
-        Vector3 toAgent = this.transform.position = target.transform.position;
+        Vector3 toAgent = this.transform.position - target.transform.position;
         float lookingAngle = Vector3.Angle(target.transform.forward, toAgent);
 
         if (lookingAngle < 60)
